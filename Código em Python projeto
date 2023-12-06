@@ -1,0 +1,72 @@
+clientes = {}
+def cadastrar_cliente():
+    print('-'*60)
+    nome = input('Digite o nome do cliente: ')
+    telefone = input('Digite o telefone do cliente: ')
+    modelo_veiculo = input('Digite o modelo do veículo: ')
+    print('-'*60)
+    cliente = {
+        'nome': nome,
+        'telefone': telefone,
+        'modelo_veiculo': modelo_veiculo,
+        'servicos': []
+    }
+    print('-'*60)
+    clientes[nome] = cliente
+    print(f'Cliente {nome} cadastrado com sucesso!')
+    print('-'*60)
+def registrar_servico():
+    print('-'*60)
+    nome_cliente = input('Digite o nome do cliente: ')
+    print('-'*60)
+    if nome_cliente in clientes:
+        tipo_servico = input('Digite o tipo de serviço (lavagem, enceramento, aspiração, etc.): ')
+        data_servico = input('Digite a data do serviço (dd/mm/aaaa): ')
+        custo_servico = float(input('Digite o custo do serviço: '))
+        print('-'*60)
+        servico = {
+            'tipo': tipo_servico,
+            'data': data_servico,
+            'custo': custo_servico
+        }
+        print('-'*60)
+        clientes[nome_cliente]['servicos'].append(servico)
+        print(f'Serviço registrado para o cliente {nome_cliente}.')
+        print('-'*60)
+    else:
+        print(f'Cliente {nome_cliente} não encontrado.')
+        print('-'*60)
+def exibir_historico():
+    nome_cliente = input('Digite o nome do cliente: ').lower()
+    if nome_cliente in clientes:
+        print(f'Histórico de serviços para o cliente {nome_cliente}: ')
+        for servico in clientes[nome_cliente]['servicos']:
+            print(f"Tipo: {servico['tipo']}, Data: {servico['data']}, Custo: R${servico['custo']:.2f}")
+    else:
+        print(f'Cliente {nome_cliente} não encontrado.')
+        print('-'*60)
+while True:
+    print('-'*60)
+    print('\nMenu:')
+    print('1. Cadastrar Cliente')
+    print('2. Registrar Serviço')
+    print('3. Exibir Histórico de Serviços')
+    print('4. Sair')
+    opcao = input('Escolha uma opção: ')
+    print('-'*60)
+    if opcao == '1':
+        cadastrar_cliente()
+        print('-'*60)
+    elif opcao == '2':
+        registrar_servico()
+        print('-'*60)
+    elif opcao == '3':
+        exibir_historico()
+        print('-'*60)
+    elif opcao == '4':
+        print('Encerrando o programa. Obrigado!')
+        print('-'*60)
+        break
+    else:
+        print('Opção inválida. Tente novamente.')
+        print('-'*60)
